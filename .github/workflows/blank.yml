@@ -3,6 +3,8 @@ name: Trigger Release
 on:
   push:
     branches: [ "main" ]
+    paths-ignore:
+      - '.github/**'
   workflow_dispatch:
 
 jobs:
