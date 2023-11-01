@@ -1,0 +1,22 @@
+name: Trigger Release
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/github-script@v6
+      with:
+        github-token: ${{ secrets.DISPATCH_PAT }}
+        script: |
+          const result = await github.rest.repos.createDispatchEvent({
+            owner: 'pf-wikis',
+            repo: 'mapping',
+            event_type: 'data_release',
+            client_payload: {}
+          })
+          console.log(result);
